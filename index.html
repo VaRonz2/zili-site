@@ -3,22 +3,370 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>字里 · Zilily</title>
+  <title>字里 Zilily · 读你喜欢的英文故事</title>
+  <meta name="description" content="字里是读英文、记生词的 App：448 篇配插画的童话、科普和生活短文，不认识的词点一下就有中文，收进生词本按记忆曲线复习。">
+  <meta name="theme-color" content="#16181D">
+  <meta property="og:title" content="字里 Zilily · 读你喜欢的英文故事">
+  <meta property="og:description" content="不认识的词点一下就有中文，读完顺手收进生词本。">
+  <meta property="og:image" content="https://zilily.app/img/tortoise-large.jpg">
+  <link rel="preload" href="fonts/wenkai-medium.woff2" as="font" type="font/woff2" crossorigin>
   <style>
-    :root { --paper: #F6F6F4; --ink: #1B1F27; --soft: #5F6672; }
-    @media (prefers-color-scheme: dark) { :root { --paper: #14161C; --ink: #ECEEF2; --soft: #9BA1AC; } }
-    body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.75 -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; }
-    main { max-width: 680px; margin: 0 auto; padding: 48px 20px 80px; }
-    h1 { font-size: 32px; margin: 0; }
-    p { color: var(--soft); }
-    a { color: inherit; }
+    @font-face { font-family: "WenKai"; src: url("fonts/wenkai-medium.woff2") format("woff2"); font-weight: 500 800; font-display: swap; }
+    :root {
+      --night: #16181D; --paper: #F6F6F4; --sheet: #FFFFFF;
+      --ink: #16181D; --soft: #5A5F68; --line: #DEDFE2;
+      --blue: #1E3F8F; --blue-deep: #17306E; --blue-soft: #C9D5F2; --word: #FFE58A;
+      --display: "WenKai", "Kaiti SC", "STKaiti", serif;
+      --sans: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+      --serif: Georgia, "Times New Roman", serif;
+      --ease: cubic-bezier(.16, 1, .3, 1);
+    }
+    * { box-sizing: border-box; }
+    html { scrollbar-color: #3A3F49 var(--night); -webkit-text-size-adjust: 100%; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.75 var(--sans); }
+    ::selection { background: var(--word); color: var(--ink); }
+    a { color: inherit; text-underline-offset: 3px; }
+    :focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
+    .hero :focus-visible, .phones :focus-visible, .join :focus-visible, footer :focus-visible { outline-color: #fff; }
+    .panel :focus-visible { outline-color: var(--blue); }
+    img { display: block; max-width: 100%; }
+    h1, h2, h3 { font-family: var(--display); font-weight: 600; letter-spacing: .01em; margin: 0; text-wrap: balance; }
+
+    .btn { display: inline-flex; align-items: center; gap: 10px; background: var(--blue); color: #fff; text-decoration: none; font-weight: 700; font-size: 18px; line-height: 1; padding: 18px 28px; border-radius: 14px; transition: background .2s var(--ease), transform .2s var(--ease); }
+    .btn:hover { background: var(--blue-deep); }
+    .btn:active { transform: translateY(1px); }
+    .btn svg { width: 18px; height: 18px; }
+    .fine { color: var(--soft); font-size: 14px; }
+
+    /* 第一屏：封面墙 */
+    .hero { position: relative; min-height: min(100svh, 980px); overflow: hidden; background: var(--night); display: grid; grid-template-columns: minmax(0, 1fr); place-items: center; padding: 96px 20px 56px; }
+    .wall { position: absolute; inset: -12% -18%; display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; transform: rotate(-4deg); animation: drift 90s linear infinite alternate; }
+    .wall figure { margin: 0; position: relative; }
+    .wall img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 14px; }
+    .wall figcaption { position: absolute; left: 10px; right: 10px; bottom: 8px; width: max-content; max-width: calc(100% - 20px); background: rgba(255,255,255,.92); color: var(--ink); font: 700 12px/1.4 var(--serif); padding: 3px 8px; border-radius: 6px; }
+    @keyframes drift { from { translate: 0 0; } to { translate: -6% -10%; } }
+    .hero::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 55% at 50% 52%, rgba(22,24,29,.25), rgba(22,24,29,.78)); pointer-events: none; }
+    .top { position: absolute; z-index: 3; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; padding: 22px clamp(20px, 4.5vw, 64px); color: #fff; }
+    .brand { font-family: var(--display); font-size: 24px; text-decoration: none; display: inline-flex; align-items: baseline; gap: 8px; }
+    .brand small { font-family: var(--sans); font-size: 13px; color: var(--blue-soft); letter-spacing: .04em; }
+    .top nav a { margin-left: 26px; font-size: 15px; color: #E3E6EC; text-decoration: none; }
+    .top nav a:hover { color: #fff; text-decoration: underline; }
+    .panel { position: relative; z-index: 2; width: min(640px, 100%); background: var(--paper); border-radius: 28px; padding: clamp(28px, 4vw, 48px); box-shadow: 0 30px 80px rgba(0,0,0,.45); }
+    .panel h1 { font-size: clamp(40px, 5.2vw, 60px); line-height: 1.16; }
+    .panel p { margin: 16px 0 0; color: var(--soft); font-size: 18px; }
+    .shelf-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 28px; padding: 0; list-style: none; }
+    .shelf-tags a { display: block; font-size: 14px; font-weight: 700; text-decoration: none; background: var(--sheet); border: 1.5px solid var(--line); padding: 6px 14px; border-radius: 999px; }
+    .shelf-tags a:hover { border-color: var(--blue); color: var(--blue); }
+    .act { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 18px; }
+
+    section { padding: clamp(72px, 10vw, 128px) clamp(20px, 4.5vw, 64px); }
+    .wrap { max-width: 1180px; margin: 0 auto; }
+    .sec-h { font-size: clamp(32px, 4vw, 48px); line-height: 1.2; }
+    .sec-p { color: var(--soft); max-width: 36em; margin: 14px 0 0; }
+
+    /* 点词演示 */
+    .demo .grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(28px, 4vw, 56px); align-items: start; margin-top: 48px; }
+    .story { background: var(--sheet); border-radius: 24px; overflow: hidden; box-shadow: 0 2px 10px rgba(22,24,29,.06); }
+    .story img { width: 100%; aspect-ratio: 16 / 7; object-fit: cover; }
+    .story-body { padding: clamp(22px, 3vw, 36px); }
+    .story-title { font: 700 26px/1.3 var(--serif); margin: 0 0 4px; }
+    .story-meta { font-size: 14px; color: var(--soft); margin: 0 0 18px; }
+    .story-text { font: 20px/1.9 var(--serif); margin: 0; max-width: 65ch; }
+    .w { font: inherit; color: inherit; background: none; border: 0; padding: 0 2px; margin: 0 -2px; border-bottom: 2px dotted #B9BDC5; cursor: pointer; border-radius: 4px; transition: background .25s var(--ease), border-color .25s var(--ease); }
+    .w:hover { background: #FFF2BF; }
+    .w[aria-pressed="true"] { background: var(--word); border-bottom-color: transparent; }
+    .sheet { position: sticky; top: 24px; background: var(--sheet); border-radius: 24px; padding: 28px 30px 30px; box-shadow: 0 18px 48px rgba(22,24,29,.12); }
+    .sheet-word { font: 700 36px/1.2 var(--serif); margin: 0; }
+    .sheet-ph { color: var(--soft); font-size: 15px; margin: 4px 0 14px; }
+    .sheet-mean { font-size: 20px; margin: 0; min-height: 3.5em; }
+    @keyframes pop { from { opacity: .4; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .sheet.pop .sheet-word, .sheet.pop .sheet-ph, .sheet.pop .sheet-mean { animation: pop .45s var(--ease); }
+    .sheet-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .chip { display: inline-flex; align-items: center; gap: 8px; font: 700 15px/1 var(--sans); padding: 12px 16px; border-radius: 12px; background: var(--paper); color: var(--ink); border: 0; cursor: pointer; }
+    .chip svg { width: 16px; height: 16px; }
+    .chip.add { background: var(--blue); color: #fff; }
+    .chip.add[aria-pressed="true"] { background: #1A6E44; }
+    .sheet-note { margin: 18px 0 0; font-size: 14px; color: var(--soft); }
+    .saved { margin: 22px 0 0; padding: 18px 0 0; border-top: 1px solid var(--line); font-size: 15px; color: var(--soft); }
+    .saved b { color: var(--ink); }
+    .saved ul { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+    .saved li { background: var(--paper); border-radius: 8px; padding: 2px 10px; font: 15px/1.7 var(--serif); color: var(--ink); }
+
+    /* 截图 */
+    .phones { background: var(--night); color: #fff; }
+    .phones .sec-p { color: #B6BCC8; }
+    .phone-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 3vw, 44px); margin-top: 56px; align-items: start; }
+    .phone-row figure { margin: 0; }
+    .phone-row figure:nth-child(2) { margin-top: 72px; }
+    .phone-row figure:nth-child(3) { margin-top: 144px; }
+    .shot { border-radius: 36px; border: 10px solid #0B0D11; box-shadow: 0 30px 60px rgba(0,0,0,.4); background: #0B0D11; aspect-ratio: 1206 / 2622; object-fit: cover; width: 100%; }
+    .phone-row figcaption { margin-top: 20px; }
+    .phone-row figcaption b { display: block; font-family: var(--display); font-size: 24px; font-weight: 600; }
+    .phone-row figcaption span { color: #B6BCC8; font-size: 15px; }
+
+    /* 书架 */
+    .shelf { margin-top: 44px; }
+    .shelf + .shelf { margin-top: 36px; }
+    .shelf-head { display: flex; align-items: baseline; gap: 12px; }
+    .shelf-head h3 { font-size: 26px; }
+    .shelf-head span { color: var(--soft); font-size: 15px; }
+    .rail { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(220px, 1fr); gap: 14px; overflow-x: auto; margin-top: 14px; padding-bottom: 10px; scroll-snap-type: x mandatory; scrollbar-color: #C4C7CD transparent; }
+    .rail figure { margin: 0; scroll-snap-align: start; }
+    .rail img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 14px; }
+    .rail figcaption { font: 15px/1.4 var(--serif); margin-top: 8px; }
+
+    /* 承诺 */
+    .promises { background: var(--paper); padding-top: 0; }
+    .promises .wrap { border-top: 1px solid var(--line); padding-top: clamp(56px, 7vw, 96px); }
+    .promise-list { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 56px; }
+    .promise-list li { padding: 22px 0; border-top: 1px solid var(--line); }
+    .promise-list b { display: block; font-family: var(--display); font-size: 22px; font-weight: 600; }
+    .promise-list span { color: var(--soft); }
+
+    /* 安装 */
+    .join { position: relative; overflow: hidden; background: var(--night); color: #fff; }
+    .join .wrap { position: relative; z-index: 1; padding-bottom: 200px; }
+    .join-wall { position: absolute; inset: auto -10% -40px; height: 260px; display: grid; grid-template-columns: repeat(8, 1fr); gap: 14px; transform: rotate(-4deg); opacity: .28; pointer-events: none; }
+    .join-wall img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 12px; }
+    .join .sec-p { color: #B6BCC8; }
+    .join .btn { background: #3A5FC0; }
+    .join .btn:hover { background: #4A6FD0; }
+    .steps { list-style: none; counter-reset: s; margin: 44px 0 40px; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .steps li { counter-increment: s; border-top: 2px solid rgba(255,255,255,.22); padding-top: 18px; }
+    .steps li::before { content: counter(s); font-family: var(--display); font-size: 40px; line-height: 1; display: block; margin-bottom: 12px; color: var(--blue-soft); }
+    .steps b { display: block; font-family: var(--display); font-weight: 600; font-size: 22px; }
+    .steps span { color: #B6BCC8; font-size: 15px; }
+    .join .fine { color: #B6BCC8; }
+    .wx { position: relative; margin-top: 28px; padding: 16px 20px; border-radius: 14px; background: rgba(22,24,29,.9); border: 1px solid rgba(255,255,255,.12); color: #E7ECF8; font-size: 15px; max-width: 40em; }
+
+    footer { background: var(--night); color: #9AA0AA; padding: 36px clamp(20px, 4.5vw, 64px); font-size: 14px; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+    footer a { color: #D7DAE0; margin-right: 18px; }
+
+    @media (max-width: 900px) {
+      .demo .grid { display: block; }
+      .demo .story { margin-bottom: 20px; }
+      .sheet { position: sticky; bottom: 12px; top: auto; z-index: 5; padding: 20px 22px 22px; }
+      .sheet-word { font-size: 28px; }
+      .sheet-mean { min-height: 0; }
+      .sheet-note { display: none; }
+      .phone-row { grid-template-columns: 1fr 1fr; }
+      .phone-row figure:nth-child(2) { margin-top: 56px; }
+      .phone-row figure:nth-child(3) { margin-top: 0; grid-column: 1 / -1; width: 50%; margin-left: auto; margin-right: auto; }
+      .steps, .promise-list { grid-template-columns: 1fr; }
+      .steps { gap: 20px; }
+    }
+    @media (max-width: 600px) {
+      body { font-size: 16px; }
+      .wall { grid-template-columns: repeat(3, 1fr); gap: 10px; inset: -8% -30%; }
+      .wall img { border-radius: 10px; }
+      .hero { align-items: end; padding-bottom: 20px; }
+      .top nav a { margin-left: 16px; font-size: 14px; }
+      .panel { border-radius: 22px; padding: 26px 22px 24px; }
+      .panel h1 { font-size: 34px; }
+      .panel p { font-size: 15px; margin-top: 12px; line-height: 1.7; }
+      .shelf-tags { flex-wrap: nowrap; overflow-x: auto; margin: 16px -22px 0; padding: 0 22px; scrollbar-width: none; }
+      .shelf-tags a { white-space: nowrap; font-size: 13px; padding: 5px 12px; }
+      .act { margin-top: 22px; }
+      .shelf-head { flex-direction: column; align-items: flex-start; gap: 2px; }
+      .shelf-head h3 { font-size: 24px; }
+      .story-text { font-size: 18px; }
+      .phone-row { display: grid; grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: 72%; overflow-x: auto; scroll-snap-type: x mandatory; margin: 40px -20px 0; padding: 0 20px 12px; gap: 18px; scrollbar-width: none; }
+      .phone-row figure:nth-child(n) { margin: 0; width: auto; grid-column: auto; scroll-snap-align: center; }
+      .btn { width: 100%; justify-content: center; }
+      .join-wall { grid-template-columns: repeat(4, 1fr); inset: auto -25% -40px; height: 200px; }
+      .join .wrap { padding-bottom: 150px; }
+    }
+    @media (prefers-reduced-motion: reduce) { .wall { animation: none; } .sheet.pop .sheet-word, .sheet.pop .sheet-ph, .sheet.pop .sheet-mean { animation: none; } * { transition: none !important; } }
   </style>
 </head>
 <body>
+  <header class="hero">
+    <div class="top">
+      <a class="brand" href="/">字里<small>Zilily</small></a>
+      <nav aria-label="页面"><a href="support.html">帮助</a><a href="privacy.html">隐私政策</a></nav>
+    </div>
+    <div class="wall" aria-hidden="true">
+      <figure><img src="img/covers/grimm-rapunzel.jpg" alt=""><figcaption>Rapunzel</figcaption></figure><figure><img src="img/covers/food-coffee-from-bean-to-cup.jpg" alt=""></figure><figure><img src="img/covers/grimm-hansel-and-gretel.jpg" alt=""></figure><figure><img src="img/covers/health-why-we-need-sleep.jpg" alt=""><figcaption>Why Sleep Is Your Body's Ultimate Superpower</figcaption></figure><figure><img src="img/covers/toefl-how-coral-reefs-form.jpg" alt=""></figure><figure><img src="img/covers/aesop-belling-the-cat.jpg" alt=""></figure>
+      <figure><img src="img/covers/travel-packing-a-carry-on-bag.jpg" alt=""></figure><figure><img src="img/covers/grimm-the-frog-prince.jpg" alt=""></figure><figure><img src="img/covers/food-how-sourdough-bread-rises.jpg" alt=""></figure><figure><img src="img/covers/aesop-the-tortoise-and-the-ducks.jpg" alt=""><figcaption>The Tortoise and the Ducks</figcaption></figure><figure><img src="img/covers/health-the-benefits-of-a-daily-walk.jpg" alt=""></figure><figure><img src="img/covers/grimm-cinderella-ashputtel.jpg" alt=""></figure>
+      <figure><img src="img/covers/ielts-the-history-of-tea-drinking.jpg" alt=""></figure><figure><img src="img/covers/grimm-the-valiant-little-tailor.jpg" alt=""></figure><figure><img src="img/covers/travel-how-jet-lag-works-and-how-to-beat-it.jpg" alt=""></figure><figure><img src="img/covers/grimm-the-bremen-town-musicians.jpg" alt=""><figcaption>The Bremen Town Musicians</figcaption></figure><figure><img src="img/covers/food-how-chocolate-is-made-from-cocoa-beans.jpg" alt=""></figure><figure><img src="img/covers/aesop-the-frogs-and-the-ox.jpg" alt=""></figure>
+      <figure><img src="img/covers/toefl-the-domestication-of-dogs.jpg" alt=""><figcaption>The Evolutionary Journey of Dog Domestication</figcaption></figure><figure><img src="img/covers/grimm-tom-thumb.jpg" alt=""></figure><figure><img src="img/covers/health-how-much-water-we-really-need.jpg" alt=""></figure><figure><img src="img/covers/grimm-mother-holle.jpg" alt=""></figure><figure><img src="img/covers/travel-choosing-a-hostel.jpg" alt=""></figure><figure><img src="img/covers/grimm-the-twelve-dancing-princesses.jpg" alt=""></figure>
+      <figure><img src="img/covers/food-why-onions-make-you-cry.jpg" alt=""><figcaption>Why Onions Make You Cry</figcaption></figure><figure><img src="img/covers/aesop-the-dog-the-cock-and-the-fox.jpg" alt=""></figure><figure><img src="img/covers/toefl-the-invention-of-the-printing-press.jpg" alt=""></figure><figure><img src="img/covers/grimm-sleeping-beauty-briar-rose.jpg" alt=""></figure><figure><img src="img/covers/health-stretching-at-your-desk.jpg" alt=""></figure><figure><img src="img/covers/travel-reading-an-airport-departure-board.jpg" alt=""></figure>
+      <figure><img src="img/covers/grimm-hansel-and-gretel.jpg" alt=""><figcaption>Hansel and Gretel</figcaption></figure><figure><img src="img/covers/food-coffee-from-bean-to-cup.jpg" alt=""></figure><figure><img src="img/covers/aesop-the-tortoise-and-the-ducks.jpg" alt=""></figure><figure><img src="img/covers/grimm-rapunzel.jpg" alt=""><figcaption>Rapunzel</figcaption></figure><figure><img src="img/covers/health-why-we-need-sleep.jpg" alt=""></figure><figure><img src="img/covers/toefl-how-coral-reefs-form.jpg" alt=""></figure>
+      <figure><img src="img/covers/grimm-the-frog-prince.jpg" alt=""><figcaption>The Frog-Prince</figcaption></figure><figure><img src="img/covers/travel-packing-a-carry-on-bag.jpg" alt=""></figure><figure><img src="img/covers/aesop-belling-the-cat.jpg" alt=""></figure><figure><img src="img/covers/food-how-sourdough-bread-rises.jpg" alt=""></figure><figure><img src="img/covers/grimm-cinderella-ashputtel.jpg" alt=""></figure><figure><img src="img/covers/health-the-benefits-of-a-daily-walk.jpg" alt=""></figure>
+    </div>
+    <div class="panel">
+      <h1>挑一篇喜欢的，<br>读完它。</h1>
+      <p>448 篇配插画的英文故事和短文，不认识的词点一下就有中文。</p>
+      <ul class="shelf-tags" aria-label="内容分类">
+        <li><a href="#shelf-tales">童话寓言</a></li><li><a href="#shelf-life">美食 · 旅行 · 健康</a></li><li><a href="#shelf-science">科普和考试阅读</a></li>
+      </ul>
+      <div class="act">
+        <a class="btn" href="https://testflight.apple.com/join/jGku2WRQ">加入 TestFlight 试用
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg></a>
+        <span class="fine">免费 · iPhone / iPad · <a href="#join">怎么装</a></span>
+      </div>
+    </div>
+  </header>
+
   <main>
-    <h1>字里</h1>
-    <p>读英文、记生词的 App。</p>
-    <p><a href="support.html">帮助</a> · <a href="privacy.html">隐私政策</a></p>
+    <section class="demo" aria-labelledby="demo-h">
+      <div class="wrap">
+        <h2 class="sec-h" id="demo-h">读到不认识的词，点一下。</h2>
+        <p class="sec-p">在下面这段里试试：点带虚线的词。字里里每个词都能点，词典装在手机里，不联网也能查。</p>
+        <div class="grid">
+          <article class="story">
+            <img src="img/tortoise-large.jpg" alt="两只鸭子用一根木棍衔着乌龟飞上天的插画">
+            <div class="story-body">
+              <h3 class="story-title" lang="en">The Tortoise and the Ducks</h3>
+              <p class="story-meta">伊索寓言 · 中级 · 约 2 分钟</p>
+              <p class="story-text" lang="en">After many years, Tortoise began to wish he had gone to that <button class="w" data-w="wedding">wedding</button>. When he saw how <button class="w" data-w="gaily">gaily</button> the birds flew about and how the <button class="w" data-w="hare">Hare</button> and the <button class="w" data-w="chipmunk">Chipmunk</button> ran <button class="w" data-w="nimbly">nimbly</button> by, always <button class="w" data-w="eager">eager</button> to see everything there was to be seen, the Tortoise felt very sad and <button class="w" data-w="discontented" aria-pressed="true">discontented</button>. He wanted to see the world too, and there he was with a house on his back and little short legs that could <button class="w" data-w="hardly">hardly</button> <button class="w" data-w="drag">drag</button> him along.</p>
+            </div>
+          </article>
+          <aside class="sheet" aria-live="polite" aria-label="释义">
+            <p class="sheet-word" lang="en" id="sw">discontented</p>
+            <p class="sheet-ph" id="sp">/.diskәn'tentid/</p>
+            <p class="sheet-mean" id="sm">adj. 不满意的</p>
+            <div class="sheet-row">
+              <button class="chip add" id="add" aria-pressed="false">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg><span>收藏单词</span></button>
+              <button class="chip" id="say">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8v4h3l4 3V5L6 8H3z"/><path d="M13.5 7.5a3.5 3.5 0 0 1 0 5M15.5 5.5a6.5 6.5 0 0 1 0 9"/></svg>读音</button>
+            </div>
+            <p class="sheet-note">释义来自开源词典 ECDICT，和 App 里一样。收进生词本时，这句原文会跟着一起存下来。</p>
+            <div class="saved" id="saved" hidden><b>你的生词本</b>（只在这个网页里演示，不会保存）<ul id="savedList"></ul></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="phones" aria-labelledby="phones-h">
+      <div class="wrap">
+        <h2 class="sec-h" id="phones-h">读、收、复习，都在一个 App 里。</h2>
+        <p class="sec-p">下面是字里在 iPhone 上的真实截图（深色模式）。</p>
+        <div class="phone-row">
+          <figure><img class="shot" src="img/shot-today.jpg" alt="字里「今天」页截图" loading="lazy"><figcaption><b>今天读什么</b><span>按栏目挑，童话、美食、旅行、健康都有。</span></figcaption></figure>
+          <figure><img class="shot" src="img/shot-read.jpg" alt="字里阅读页点词弹出释义的截图" loading="lazy"><figcaption><b>点词看中文</b><span>可以切到中英对照，一段英文一段中文。</span></figcaption></figure>
+          <figure><img class="shot" src="img/shot-review.jpg" alt="字里复习页截图" loading="lazy"><figcaption><b>按记忆曲线复习</b><span>带着收词时的原句，想不起来再看答案。</span></figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="library" aria-labelledby="lib-h">
+      <div class="wrap">
+        <h2 class="sec-h" id="lib-h">先从喜欢的读起。</h2>
+        <p class="sec-p">不追时事，多是读着舒服的内容。下面每张图都是 App 里一篇真实文章的封面。</p>
+        <div class="shelf" id="shelf-tales">
+          <div class="shelf-head"><h3>童话寓言</h3><span>伊索、格林、安徒生，172 篇</span></div>
+          <div class="rail">
+            <figure><img src="img/covers/grimm-the-bremen-town-musicians.jpg" alt="" loading="lazy"><figcaption lang="en">The Bremen Town Musicians</figcaption></figure>
+            <figure><img src="img/covers/aesop-belling-the-cat.jpg" alt="" loading="lazy"><figcaption lang="en">Belling the Cat</figcaption></figure>
+            <figure><img src="img/covers/grimm-the-twelve-dancing-princesses.jpg" alt="" loading="lazy"><figcaption lang="en">The Twelve Dancing Princesses</figcaption></figure>
+            <figure><img src="img/covers/aesop-the-frogs-and-the-ox.jpg" alt="" loading="lazy"><figcaption lang="en">The Frogs and the Ox</figcaption></figure>
+            <figure><img src="img/covers/grimm-mother-holle.jpg" alt="" loading="lazy"><figcaption lang="en">Mother Holle</figcaption></figure>
+          </div>
+        </div>
+        <div class="shelf" id="shelf-life">
+          <div class="shelf-head"><h3>美食、旅行、健康生活</h3><span>原创短文，每篇带 4 道读后题</span></div>
+          <div class="rail">
+            <figure><img src="img/covers/food-why-onions-make-you-cry.jpg" alt="" loading="lazy"><figcaption lang="en">Why Onions Make You Cry</figcaption></figure>
+            <figure><img src="img/covers/health-why-we-need-sleep.jpg" alt="" loading="lazy"><figcaption lang="en">Why Sleep Is Your Body's Ultimate Superpower</figcaption></figure>
+            <figure><img src="img/covers/travel-how-jet-lag-works-and-how-to-beat-it.jpg" alt="" loading="lazy"><figcaption lang="en">Resetting Your Clock: How to Outsmart Jet Lag</figcaption></figure>
+            <figure><img src="img/covers/food-how-chocolate-is-made-from-cocoa-beans.jpg" alt="" loading="lazy"><figcaption lang="en">From Bitter Bean to Sweet Bar</figcaption></figure>
+            <figure><img src="img/covers/health-the-benefits-of-a-daily-walk.jpg" alt="" loading="lazy"><figcaption lang="en">The Simple Magic of a Daily Walk</figcaption></figure>
+          </div>
+        </div>
+        <div class="shelf" id="shelf-science">
+          <div class="shelf-head"><h3>科普和考试阅读</h3><span>托福、雅思、托业风格的练习文章</span></div>
+          <div class="rail">
+            <figure><img src="img/covers/toefl-how-coral-reefs-form.jpg" alt="" loading="lazy"><figcaption lang="en">How Coral Reefs Are Built</figcaption></figure>
+            <figure><img src="img/covers/ielts-the-history-of-tea-drinking.jpg" alt="" loading="lazy"><figcaption lang="en">From Sacred Brew to Global Cup: The Enduring Journey of Tea</figcaption></figure>
+            <figure><img src="img/covers/toefl-the-domestication-of-dogs.jpg" alt="" loading="lazy"><figcaption lang="en">The Evolutionary Journey of Dog Domestication</figcaption></figure>
+            <figure><img src="img/covers/toefl-the-invention-of-the-printing-press.jpg" alt="" loading="lazy"><figcaption lang="en">The Printing Press and the Dawn of Mass Communication</figcaption></figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="promises" aria-labelledby="pr-h">
+      <div class="wrap">
+        <h2 class="sec-h" id="pr-h">安心用。</h2>
+        <ul class="promise-list">
+          <li><b>不登录也能用</b><span>收藏和复习记录都存在你的手机上。想在 iPhone 和 iPad 之间同步，再用邮箱登录。</span></li>
+          <li><b>没有广告，不追踪你</b><span>不做用户行为统计，不卖数据。详见<a href="privacy.html">隐私政策</a>。</span></li>
+          <li><b>词典在手机里</b><span>点词查释义不用联网，地铁里也能读。</span></li>
+          <li><b>随时删除账号</b><span>在「我的」→ 账号里一键删除，云端数据一起清掉。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="join" id="join" aria-labelledby="join-h">
+      <div class="join-wall" aria-hidden="true"><img src="img/covers/grimm-rapunzel.jpg" alt="" loading="lazy"><img src="img/covers/food-why-onions-make-you-cry.jpg" alt="" loading="lazy"><img src="img/covers/aesop-belling-the-cat.jpg" alt="" loading="lazy"><img src="img/covers/health-why-we-need-sleep.jpg" alt="" loading="lazy"><img src="img/covers/grimm-the-frog-prince.jpg" alt="" loading="lazy"><img src="img/covers/travel-choosing-a-hostel.jpg" alt="" loading="lazy"><img src="img/covers/toefl-how-coral-reefs-form.jpg" alt="" loading="lazy"><img src="img/covers/grimm-mother-holle.jpg" alt="" loading="lazy"><img src="img/covers/food-coffee-from-bean-to-cup.jpg" alt="" loading="lazy"><img src="img/covers/aesop-the-frogs-and-the-ox.jpg" alt="" loading="lazy"><img src="img/covers/health-stretching-at-your-desk.jpg" alt="" loading="lazy"><img src="img/covers/grimm-tom-thumb.jpg" alt="" loading="lazy"><img src="img/covers/ielts-the-history-of-tea-drinking.jpg" alt="" loading="lazy"><img src="img/covers/travel-packing-a-carry-on-bag.jpg" alt="" loading="lazy"><img src="img/covers/grimm-sleeping-beauty-briar-rose.jpg" alt="" loading="lazy"><img src="img/covers/food-how-sourdough-bread-rises.jpg" alt="" loading="lazy"></div>
+      <div class="wrap">
+        <h2 class="sec-h" id="join-h">现在免费试用测试版。</h2>
+        <p class="sec-p">字里还没上架 App Store，测试版通过苹果的 TestFlight 安装。公开链接最多 20 人，满了请稍后再来。</p>
+        <ol class="steps">
+          <li><b>在 App Store 装 TestFlight</b><span>苹果官方的测试版工具，免费。</span></li>
+          <li><b>用 Safari 打开邀请链接</b><span>点下面的按钮，或在手机 Safari 里输入链接。</span></li>
+          <li><b>点「接受」，再点「安装」</b><span>装好后桌面上就有字里。</span></li>
+        </ol>
+        <div class="act">
+          <a class="btn" href="https://testflight.apple.com/join/jGku2WRQ">打开邀请链接
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg></a>
+          <span class="fine">testflight.apple.com/join/jGku2WRQ</span>
+        </div>
+        <p class="wx">在微信或小红书里点链接没反应？点右上角「…」，选「在浏览器打开」，用 Safari 打开就好。</p>
+      </div>
+    </section>
   </main>
+
+  <footer>
+    <div class="wrap">
+      <div><a href="support.html">帮助</a><a href="privacy.html">隐私政策</a><a href="mailto:support@zilily.app">support@zilily.app</a></div>
+      <div>字里 Zilily · 封面插画由字里制作 · 释义来自 ECDICT</div>
+    </div>
+  </footer>
+
+  <script>
+    const DICT = {
+      wedding: ["/'wediŋ/", 'n. 婚礼，结婚'],
+      gaily: ["/'geili/", 'adv. 欢乐地，华丽地'],
+      hare: ['/hєә/', 'n. 野兔'],
+      chipmunk: ["/'tʃipmʌŋk/", 'n. 金花鼠'],
+      nimbly: ["/'nimbli/", 'adv. 敏捷地，机敏地'],
+      eager: ["/'i:gә/", 'adj. 热心的，渴望的'],
+      discontented: ["/.diskәn'tentid/", 'adj. 不满意的'],
+      hardly: ["/'hɑ:dli/", 'adv. 几乎不，勉强'],
+      drag: ['/dræg/', 'v. 拖动，沉重缓慢地走'],
+    };
+    const saved = new Set();
+    let current = 'discontented';
+    const $ = (id) => document.getElementById(id);
+    function syncAdd() {
+      const on = saved.has(current);
+      $('add').setAttribute('aria-pressed', on);
+      $('add').querySelector('span').textContent = on ? '已收藏' : '收藏单词';
+    }
+    document.querySelectorAll('.w').forEach((b) => b.addEventListener('click', () => {
+      document.querySelectorAll('.w').forEach((x) => x.setAttribute('aria-pressed', 'false'));
+      b.setAttribute('aria-pressed', 'true');
+      current = b.dataset.w;
+      const [ph, mean] = DICT[current];
+      $('sw').textContent = current; $('sp').textContent = ph; $('sm').textContent = mean;
+      const sh = document.querySelector('.sheet'); sh.classList.remove('pop'); void sh.offsetWidth; sh.classList.add('pop');
+      syncAdd();
+    }));
+    $('add').addEventListener('click', () => {
+      saved.has(current) ? saved.delete(current) : saved.add(current);
+      $('savedList').replaceChildren(...[...saved].map((w) => Object.assign(document.createElement('li'), { textContent: w, lang: 'en' })));
+      $('saved').hidden = saved.size === 0;
+      syncAdd();
+    });
+    $('say').addEventListener('click', () => {
+      if (!('speechSynthesis' in window)) return;
+      const u = new SpeechSynthesisUtterance(current); u.lang = 'en-US'; u.rate = .9;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    });
+  </script>
 </body>
 </html>
