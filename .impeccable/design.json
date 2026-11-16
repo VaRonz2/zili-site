@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-16T12:00:00+08:00",
+  "title": "Design System: 字里 Zilily 网站",
+  "extensions": {
+    "colorMeta": {
+      "night": { "role": "neutral", "displayName": "夜色墨", "tonalRamp": ["#0B0D11", "#16181D", "#1F2229", "#2C303A", "#3A3F49", "#5A5F68", "#9AA0AA", "#D7DAE0"] },
+      "paper": { "role": "neutral", "displayName": "纸色", "tonalRamp": ["#2A2A28", "#4A4A47", "#6E6E6A", "#94948F", "#BBBBB6", "#DEDEDA", "#F6F6F4", "#FBFBFA"] },
+      "sheet": { "role": "neutral", "displayName": "白纸", "tonalRamp": ["#262626", "#4D4D4D", "#737373", "#999999", "#BFBFBF", "#E5E5E5", "#F6F6F4", "#FFFFFF"] },
+      "ink": { "role": "neutral", "displayName": "墨色", "tonalRamp": ["#0B0D11", "#16181D", "#2C303A", "#5A5F68", "#8A8F98", "#B9BDC5", "#DEDFE2", "#F6F6F4"] },
+      "soft": { "role": "neutral", "displayName": "灰墨", "tonalRamp": ["#1F2229", "#33373F", "#474B54", "#5A5F68", "#7A7F88", "#9AA0AA", "#C4C7CD", "#E8E9EC"] },
+      "line": { "role": "neutral", "displayName": "细线", "tonalRamp": ["#3A3D44", "#5A5D64", "#7A7D84", "#9A9DA4", "#B9BDC5", "#C4C7CD", "#DEDFE2", "#EFF0F2"] },
+      "on-night-soft": { "role": "neutral", "displayName": "夜底浅灰", "tonalRamp": ["#3A3F49", "#5A606C", "#7A808C", "#9AA0AA", "#B6BCC8", "#D7DAE0", "#E3E6EC", "#F2F3F6"] },
+      "ink-blue": { "role": "primary", "displayName": "墨蓝", "tonalRamp": ["#0C1A3D", "#17306E", "#1E3F8F", "#3A5FC0", "#4A6FD0", "#7F9AE0", "#C9D5F2", "#EEF2FB"] },
+      "ink-blue-deep": { "role": "primary", "displayName": "深墨蓝", "tonalRamp": ["#0C1A3D", "#17306E", "#1E3F8F", "#3A5FC0", "#4A6FD0", "#7F9AE0", "#C9D5F2", "#EEF2FB"] },
+      "ink-blue-lift": { "role": "primary", "displayName": "提亮墨蓝", "tonalRamp": ["#0C1A3D", "#17306E", "#1E3F8F", "#3A5FC0", "#4A6FD0", "#7F9AE0", "#C9D5F2", "#EEF2FB"] },
+      "ink-blue-lift-hover": { "role": "primary", "displayName": "提亮墨蓝·悬停", "tonalRamp": ["#0C1A3D", "#17306E", "#1E3F8F", "#3A5FC0", "#4A6FD0", "#7F9AE0", "#C9D5F2", "#EEF2FB"] },
+      "blue-mist": { "role": "primary", "displayName": "雾蓝", "tonalRamp": ["#0C1A3D", "#17306E", "#1E3F8F", "#3A5FC0", "#4A6FD0", "#7F9AE0", "#C9D5F2", "#EEF2FB"] },
+      "word-yellow": { "role": "secondary", "displayName": "划词黄", "tonalRamp": ["#4A3A00", "#7A6100", "#A88A10", "#D4B235", "#F2D35E", "#FFE58A", "#FFF2BF", "#FFFAE5"] },
+      "word-yellow-hover": { "role": "secondary", "displayName": "浅划词黄", "tonalRamp": ["#4A3A00", "#7A6100", "#A88A10", "#D4B235", "#F2D35E", "#FFE58A", "#FFF2BF", "#FFFAE5"] },
+      "bezel": { "role": "neutral", "displayName": "机身黑", "tonalRamp": ["#0B0D11", "#16181D", "#1F2229", "#2C303A", "#3A3F49", "#5A5F68", "#9AA0AA", "#D7DAE0"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display · 文楷", "purpose": "首屏卡片大标题，一页一个；手机 34px。" },
+      "headline": { "displayName": "Headline · 文楷", "purpose": "每段段标题，完整短句。" },
+      "title": { "displayName": "Title · 文楷", "purpose": "书架名、承诺条目、安装步骤、截图说明小标题（22–26px）。" },
+      "body": { "displayName": "Body · 系统黑体", "purpose": "说明文字；段落说明限宽 36em；手机 16px。" },
+      "reading": { "displayName": "Reading · 衬线", "purpose": "英文故事原文，限宽 65ch；手机 18px。" },
+      "word": { "displayName": "Word · 衬线", "purpose": "释义卡里的单词；手机 28px。" },
+      "label": { "displayName": "Label · 系统黑体", "purpose": "元信息与小字说明。" }
+    },
+    "shadows": [
+      { "name": "panel-hero", "value": "0 30px 80px rgba(0,0,0,.45)", "purpose": "夜底上托起首屏纸卡。" },
+      { "name": "sheet-float", "value": "0 18px 48px rgba(22,24,29,.12)", "purpose": "纸底上浮起的释义卡。" },
+      { "name": "card-rest", "value": "0 2px 10px rgba(22,24,29,.06)", "purpose": "故事卡与纸底分开。" },
+      { "name": "device", "value": "0 30px 60px rgba(0,0,0,.4)", "purpose": "夜底上的手机截图。" }
+    ],
+    "motion": [
+      { "name": "ease", "value": "cubic-bezier(.16, 1, .3, 1)", "purpose": "所有状态过渡和弹入的缓动。" },
+      { "name": "state", "value": "0.2s", "purpose": "按钮背景、按下位移。" },
+      { "name": "word", "value": "0.25s", "purpose": "可点词的底色与下划线切换。" },
+      { "name": "pop", "value": "0.45s, opacity .4→1, translateY 8px→0", "purpose": "释义卡切词时内容弹入。" },
+      { "name": "drift", "value": "90s linear infinite alternate, translate 0→(-6%,-10%)", "purpose": "封面墙缓慢平移；减少动态时关闭。" }
+    ],
+    "breakpoints": [
+      { "name": "tablet", "value": "900px" },
+      { "name": "phone", "value": "600px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "主按钮",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "纸色背景上的唯一主操作，带右箭头描线图标。",
+      "html": "<a class=\"ds-btn\" href=\"#\">加入 TestFlight 试用<svg viewBox=\"0 0 20 20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 10h11M11 5l5 5-5 5\"/></svg></a>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; gap: 10px; background: #1E3F8F; color: #fff; text-decoration: none; font: 700 18px/1 -apple-system, 'PingFang SC', sans-serif; padding: 18px 28px; border-radius: 14px; transition: background .2s cubic-bezier(.16,1,.3,1), transform .2s cubic-bezier(.16,1,.3,1); } .ds-btn svg { width: 18px; height: 18px; } .ds-btn:hover { background: #17306E; } .ds-btn:active { transform: translateY(1px); } .ds-btn:focus-visible { outline: 3px solid #1E3F8F; outline-offset: 3px; }"
+    },
+    {
+      "name": "主按钮 · 夜底",
+      "kind": "button",
+      "refersTo": "button-primary-on-night",
+      "description": "夜色段里的主按钮，提亮一档保证对比，焦点框为白色。",
+      "html": "<div style=\"background:#16181D;padding:24px\"><a class=\"ds-btn-night\" href=\"#\">打开邀请链接<svg viewBox=\"0 0 20 20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 10h11M11 5l5 5-5 5\"/></svg></a></div>",
+      "css": ".ds-btn-night { display: inline-flex; align-items: center; gap: 10px; background: #3A5FC0; color: #fff; text-decoration: none; font: 700 18px/1 -apple-system, 'PingFang SC', sans-serif; padding: 18px 28px; border-radius: 14px; transition: background .2s cubic-bezier(.16,1,.3,1); } .ds-btn-night svg { width: 18px; height: 18px; } .ds-btn-night:hover { background: #4A6FD0; } .ds-btn-night:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }"
+    },
+    {
+      "name": "操作 chip",
+      "kind": "chip",
+      "refersTo": "chip-action",
+      "description": "释义卡里的收藏 / 读音操作。",
+      "html": "<div style=\"background:#fff;padding:20px;display:flex;gap:10px\"><button class=\"ds-chip ds-chip-primary\"><svg viewBox=\"0 0 20 20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M10 4v12M4 10h12\"/></svg>收藏单词</button><button class=\"ds-chip\"><svg viewBox=\"0 0 20 20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 8v4h3l4 3V5L6 8H3z\"/><path d=\"M13.5 7.5a3.5 3.5 0 0 1 0 5M15.5 5.5a6.5 6.5 0 0 1 0 9\"/></svg>读音</button></div>",
+      "css": ".ds-chip { display: inline-flex; align-items: center; gap: 8px; font: 700 15px/1 -apple-system, 'PingFang SC', sans-serif; padding: 12px 16px; border-radius: 12px; background: #F6F6F4; color: #16181D; border: 0; cursor: pointer; } .ds-chip svg { width: 16px; height: 16px; } .ds-chip-primary { background: #1E3F8F; color: #fff; } .ds-chip:focus-visible { outline: 3px solid #1E3F8F; outline-offset: 3px; }"
+    },
+    {
+      "name": "分类标签",
+      "kind": "chip",
+      "refersTo": "tag-category",
+      "description": "首屏卡片里跳到书架的全圆标签。",
+      "html": "<div style=\"background:#F6F6F4;padding:20px;display:flex;gap:8px\"><a class=\"ds-tag\" href=\"#\">童话寓言</a><a class=\"ds-tag\" href=\"#\">美食 · 旅行 · 健康</a></div>",
+      "css": ".ds-tag { display: block; font: 700 14px/1.75 -apple-system, 'PingFang SC', sans-serif; text-decoration: none; color: #16181D; background: #fff; border: 1.5px solid #DEDFE2; padding: 6px 14px; border-radius: 999px; } .ds-tag:hover { border-color: #1E3F8F; color: #1E3F8F; } .ds-tag:focus-visible { outline: 3px solid #1E3F8F; outline-offset: 3px; }"
+    },
+    {
+      "name": "可点的词",
+      "kind": "custom",
+      "refersTo": "word-tap-selected",
+      "description": "英文原文里的词，点后划词黄底并更新释义卡。",
+      "html": "<p class=\"ds-reading\" lang=\"en\">the Tortoise felt very sad and <button class=\"ds-w\" aria-pressed=\"true\">discontented</button>, with little short legs that could <button class=\"ds-w\" aria-pressed=\"false\">hardly</button> drag him along.</p>",
+      "css": ".ds-reading { font: 20px/1.9 Georgia, 'Times New Roman', serif; color: #16181D; max-width: 65ch; } .ds-w { font: inherit; color: inherit; background: none; border: 0; padding: 0 2px; margin: 0 -2px; border-bottom: 2px dotted #B9BDC5; cursor: pointer; border-radius: 4px; transition: background .25s cubic-bezier(.16,1,.3,1), border-color .25s cubic-bezier(.16,1,.3,1); } .ds-w:hover { background: #FFF2BF; } .ds-w[aria-pressed='true'] { background: #FFE58A; border-bottom-color: transparent; } .ds-w:focus-visible { outline: 3px solid #1E3F8F; outline-offset: 3px; }"
+    },
+    {
+      "name": "释义卡",
+      "kind": "card",
+      "refersTo": "card-story",
+      "description": "单词 → 音标 → 中文释义 → 操作，和 App 的查词卡一致。",
+      "html": "<div class=\"ds-sheet\"><p class=\"ds-sheet-word\" lang=\"en\">discontented</p><p class=\"ds-sheet-ph\">/.diskәn'tentid/</p><p class=\"ds-sheet-mean\">adj. 不满意的</p></div>",
+      "css": ".ds-sheet { background: #fff; border-radius: 24px; padding: 28px 30px 30px; box-shadow: 0 18px 48px rgba(22,24,29,.12); max-width: 360px; font-family: -apple-system, 'PingFang SC', sans-serif; color: #16181D; } .ds-sheet-word { font: 700 36px/1.2 Georgia, serif; margin: 0; } .ds-sheet-ph { color: #5A5F68; font-size: 15px; margin: 4px 0 14px; } .ds-sheet-mean { font-size: 20px; margin: 0; }"
+    },
+    {
+      "name": "首屏纸卡",
+      "kind": "card",
+      "refersTo": "panel-hero",
+      "description": "夜色封面墙上的纸色文字卡。",
+      "html": "<div style=\"background:#16181D;padding:40px\"><div class=\"ds-panel\"><h1>挑一篇喜欢的，<br>读完它。</h1><p>448 篇配插画的英文故事和短文，不认识的词点一下就有中文。</p></div></div>",
+      "css": ".ds-panel { background: #F6F6F4; border-radius: 28px; padding: 40px; box-shadow: 0 30px 80px rgba(0,0,0,.45); max-width: 560px; } .ds-panel h1 { font: 600 48px/1.16 WenKai, 'Kaiti SC', STKaiti, serif; letter-spacing: .01em; margin: 0; color: #16181D; } .ds-panel p { margin: 16px 0 0; color: #5A5F68; font: 18px/1.75 -apple-system, 'PingFang SC', sans-serif; }"
+    },
+    {
+      "name": "导航",
+      "kind": "nav",
+      "description": "夜色上的品牌名和两个文字链接。",
+      "html": "<div class=\"ds-top\"><a class=\"ds-brand\" href=\"#\">字里<small>Zilily</small></a><nav><a href=\"#\">帮助</a><a href=\"#\">隐私政策</a></nav></div>",
+      "css": ".ds-top { display: flex; align-items: center; justify-content: space-between; padding: 22px 32px; background: #16181D; color: #fff; } .ds-brand { font: 24px WenKai, 'Kaiti SC', STKaiti, serif; color: #fff; text-decoration: none; display: inline-flex; align-items: baseline; gap: 8px; } .ds-brand small { font: 13px -apple-system, sans-serif; color: #C9D5F2; letter-spacing: .04em; } .ds-top nav a { margin-left: 26px; font: 15px -apple-system, 'PingFang SC', sans-serif; color: #E3E6EC; text-decoration: none; } .ds-top nav a:hover { color: #fff; text-decoration: underline; } .ds-top a:focus-visible { outline: 3px solid #fff; outline-offset: 3px; border-radius: 6px; }"
+    },
+    {
+      "name": "封面",
+      "kind": "custom",
+      "refersTo": "cover-tile",
+      "description": "App 真实封面，16:9 圆角 14px，可带衬线英文篇名。",
+      "html": "<figure class=\"ds-cover\"><div class=\"ds-cover-img\"></div><figcaption lang=\"en\">The Tortoise and the Ducks</figcaption></figure>",
+      "css": ".ds-cover { margin: 0; width: 260px; } .ds-cover-img { aspect-ratio: 16 / 9; border-radius: 14px; background: #C9D5F2; } .ds-cover figcaption { font: 15px/1.4 Georgia, serif; margin-top: 8px; color: #16181D; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "夜里的书墙",
+    "overview": "网站沿用字里 App 的墨蓝主题：夜色墨底上铺满 App 里真实的文章封面插画，文字放在纸白卡片里，像从书墙上抽出一页来读。页面节奏是夜 / 纸交替：第一屏和安装段在夜色里，读词演示和书架在纸色里。\n\n颜色极省：墨蓝只负责「可以按、已选中、焦点」，划词黄只属于「被点到的那个词」。图像只用 App 自己的东西（封面、截图），不用图库图或装饰插画。字体分三种声音：标题用霞鹜文楷（中文，有手写温度），说明用系统黑体，英文原文用衬线，让人一眼分清「这是要读的英文」。\n\nsupport.html 和 privacy.html 是素净的阅读页，只共用纸色和系统黑体，不属于这套视觉世界的完整表达。",
+    "keyCharacteristics": [
+      "夜色墨底 + 纸白卡片，两层对比承担全部层次",
+      "16:9 圆角封面是唯一的装饰素材，可倾斜、可缓慢平移",
+      "墨蓝只给动作和选中，划词黄只给词",
+      "文楷标题 / 黑体说明 / 衬线英文，三种字体各司其职"
+    ],
+    "rules": [
+      { "name": "The 一词一黄 Rule", "body": "划词黄只出现在被点中的词和文本选区上，不做按钮、徽标或强调底色。", "section": "colors" },
+      { "name": "The 蓝即可按 Rule", "body": "墨蓝只用于能按的东西、已选中的状态和焦点框；不用于标题、正文强调或装饰。", "section": "colors" },
+      { "name": "The 先裁字再改标题 Rule", "body": "文楷是按页面用字裁出的子集。任何文楷文字（h1–h3、品牌名、标题样式的 <b>、步骤数字）改动后，必须用 pyftsubset 重新裁子集，否则新字会退回系统楷体。", "section": "typography" },
+      { "name": "The 英文用衬线 Rule", "body": "页面上供阅读的英文（原文、篇名、封面标签）一律用衬线，并标 lang=\"en\"；界面说明不用衬线。", "section": "typography" },
+      { "name": "The 纸才有影 Rule", "body": "只有承载文字的纸卡和截图有投影；封面、标签、按钮都是平的。", "section": "elevation" }
+    ],
+    "dos": [
+      "Do 用 App 的真实封面和真实截图作为全部图像素材，封面保持 16:9、圆角 14px。",
+      "Do 把文字放在纸色或白色卡片上，夜色只做舞台和底色。",
+      "Do 夜底上的主按钮用提亮墨蓝，焦点框改白色。",
+      "Do 改动任何文楷文字后重新裁字体子集。",
+      "Do 所有动画在 prefers-reduced-motion: reduce 下关闭。",
+      "Do 图标用内联描线 SVG（描边 2–2.4，圆头）。"
+    ],
+    "donts": [
+      "Don't 把划词黄用在词和选区以外的地方。",
+      "Don't 把墨蓝用于标题、装饰或大面积底色。",
+      "Don't 用硬边偏移阴影或给封面、按钮加投影。",
+      "Don't 用文字字符或 emoji 充当图标。",
+      "Don't 用 App 之外的图库图、装饰插画或渐变色块代替 App 封面。"
+    ]
+  }
+}
