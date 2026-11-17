@@ -40,20 +40,34 @@
     .btn svg { width: 18px; height: 18px; }
     .fine { color: var(--soft); font-size: 14px; }
 
-    /* 第一屏：夜色上一张纸卡 + 一台正在打字的手机 */
-    .hero { position: relative; background: var(--night); padding: 112px clamp(20px, 4.5vw, 64px) 0; }
-    .top { position: absolute; z-index: 3; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; padding: 22px clamp(20px, 4.5vw, 64px); color: #fff; }
+    /* 第一屏：墨蓝底，手机居中，两侧标注指向截图里的位置（Zhu 2026-11-17 给的参考图） */
+    .hero { position: relative; overflow: hidden; background: var(--blue); color: #fff; }
+    .top { position: relative; z-index: 3; display: flex; align-items: center; justify-content: space-between; padding: 22px clamp(20px, 4.5vw, 64px); }
     .brand { font-family: var(--display); font-size: 24px; text-decoration: none; display: inline-flex; align-items: baseline; gap: 8px; }
     .brand small { font-family: var(--sans); font-size: 13px; color: var(--blue-soft); letter-spacing: .04em; }
-    .top nav a { margin-left: 26px; font-size: 15px; color: #E3E6EC; text-decoration: none; }
+    .top nav a { margin-left: 26px; font-size: 15px; color: #E3E8F6; text-decoration: none; }
     .top nav a:hover, .top nav a[aria-current="page"] { color: #fff; text-decoration: underline; }
-    .hero-grid { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(32px, 5vw, 72px); align-items: end; }
-    .panel { align-self: center; margin-bottom: 96px; background: var(--paper); border-radius: 28px; padding: clamp(28px, 4vw, 48px); box-shadow: 0 30px 80px rgba(0,0,0,.45); }
-    .panel h1 { font-size: clamp(40px, 5.2vw, 60px); line-height: 1.16; }
-    .panel p { margin: 16px 0 28px; color: var(--soft); font-size: 18px; }
-    .panel p b { color: var(--ink); font-weight: 600; }
-    .act { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 18px; }
-    .shot.hero-phone { position: relative; z-index: 2; width: min(360px, 100%); justify-self: center; margin-bottom: -120px; }
+    .ghost { position: absolute; z-index: 0; font: 900 clamp(120px, 13vw, 190px)/1 var(--sans); color: rgba(255,255,255,.07); pointer-events: none; user-select: none; }
+    .ghost.g1 { left: clamp(20px, 4.5vw, 64px); top: 96px; }
+    .ghost.g2 { right: clamp(20px, 4.5vw, 64px); bottom: 40px; }
+    .stage { position: relative; z-index: 1; max-width: 1312px; margin: 0 auto; padding: 8px clamp(20px, 4.5vw, 64px) 0; min-height: 900px; }
+    .device { position: relative; width: 340px; margin: 0 auto; }
+    .device .shot { box-shadow: 0 40px 80px rgba(8,16,40,.45); }
+    .callout { position: absolute; display: flex; align-items: center; width: 400px; }
+    .callout.l { right: calc(100% - var(--x)); flex-direction: row-reverse; text-align: right; }
+    .callout.r { left: var(--x); }
+    .callout .dot { flex: none; width: 12px; height: 12px; border-radius: 50%; background: var(--word); box-shadow: 0 0 0 6px rgba(255,229,138,.28); }
+    .callout .rule { flex: none; height: 2px; background: var(--word); opacity: .9; }
+    .callout .rule { width: var(--len); }
+    .callout .txt { padding: 0 14px; }
+    .callout b { display: block; font-size: 21px; font-weight: 800; line-height: 1.35; }
+    .callout span { display: block; font-size: 14px; color: #C9D5F2; line-height: 1.5; }
+    .pitch { position: absolute; z-index: 2; left: clamp(20px, 4.5vw, 64px); bottom: 64px; max-width: 420px; }
+    .pitch h1 { font: 800 clamp(34px, 3.4vw, 46px)/1.3 var(--sans); letter-spacing: .01em; }
+    .pitch .act { margin-top: 28px; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+    .hero .btn { background: #fff; color: var(--blue); }
+    .hero .btn:hover { background: #E8EEFB; }
+    .hero .fine { color: #C9D5F2; }
     .shot { border-radius: 36px; border: 10px solid #0B0D11; box-shadow: 0 30px 60px rgba(0,0,0,.4); background: #0B0D11; aspect-ratio: 720 / 1565; object-fit: cover; width: 100%; height: auto; }
 
     section { padding: clamp(72px, 10vw, 128px) clamp(20px, 4.5vw, 64px); }
@@ -62,7 +76,6 @@
     .sec-p { color: var(--soft); max-width: 36em; margin: 14px 0 0; }
 
     /* 打字演示 */
-    .demo { padding-top: clamp(160px, 16vw, 200px); }
     .demo .grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(28px, 4vw, 56px); align-items: start; margin-top: 48px; }
     .typer { background: var(--sheet); border-radius: 24px; overflow: hidden; box-shadow: 0 2px 10px rgba(22,24,29,.06); }
     .line { padding: clamp(22px, 3vw, 36px); min-height: 136px; font-size: 26px; line-height: 1.5; }
@@ -130,10 +143,18 @@
     footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
     footer a { color: #D7DAE0; margin-right: 18px; }
 
+    /* 两侧放不下标注时：标题和按钮放上面，手机居中，标注排成两列放手机下面（不画线） */
+    @media (max-width: 1180px) {
+      .stage { min-height: 0; padding-bottom: 64px; display: flex; flex-direction: column; }
+      .pitch { position: static; order: -1; max-width: none; margin: 8px 0 44px; }
+      .device { width: min(320px, 80%); }
+      .callouts { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 28px; margin-top: 40px; width: min(640px, calc(100vw - 40px)); position: relative; left: 50%; transform: translateX(-50%); }
+      .callout { position: static; width: auto; flex-direction: row !important; text-align: left !important; align-items: flex-start; }
+      .callout .rule { display: none; }
+      .callout .dot { margin-top: 9px; }
+      .ghost.g1 { top: 70px; }
+    }
     @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      .panel { margin-bottom: 40px; }
-      .shot.hero-phone { width: min(300px, 78%); }
       .demo .grid { display: block; }
       .typer { margin-bottom: 20px; }
       .note { position: static; padding: 22px 22px 24px; }
@@ -145,11 +166,10 @@
     }
     @media (max-width: 600px) {
       body { font-size: 16px; }
-      .hero { padding-top: 84px; }
       .top nav a { margin-left: 16px; font-size: 14px; }
-      .panel { border-radius: 22px; padding: 26px 22px 24px; }
-      .panel h1 { font-size: clamp(26px, 9vw, 34px); }
-      .panel p { font-size: 15px; margin: 12px 0 22px; line-height: 1.7; }
+      .callouts { grid-template-columns: 1fr; }
+      .callout b { font-size: 18px; }
+      .pitch h1 { font-size: clamp(28px, 8.4vw, 34px); }
       .line { font-size: 22px; min-height: 112px; }
       .cand { padding: 6px 9px 8px; }
       .cand .zh { font-size: 22px; }
@@ -163,21 +183,31 @@
 </head>
 <body>
   <header class="hero">
+    <div class="ghost g1" aria-hidden="true">打</div>
+    <div class="ghost g2" aria-hidden="true">学</div>
     <div class="top">
       <a class="brand" href="/">字里<small>Zilily</small></a>
       <nav aria-label="页面"><a href="/">字里 App</a><a href="ime.html" aria-current="page">输入法</a><a href="ime-privacy.html">隐私政策</a></nav>
     </div>
-    <div class="hero-grid">
-      <div class="panel">
+    <div class="stage">
+      <div class="device">
+        <img class="shot" src="img/shot-ime-light.jpg" alt="字里输入法打字截图：输入框里是「我明天要和客户」，键盘候选栏里「谈判」下面写着 to negotiate，标着字里" width="720" height="1565">
+        <!-- --x：标注的点落在截图横向的哪里（占手机宽度的比例）；top：纵向位置。对着 shot-ime-light.jpg 量的 -->
+        <div class="callouts">
+          <div class="callout l" style="--x: 9%; --len: 96px; top: calc(16.9% - 24px)"><i class="dot"></i><i class="rule"></i><div class="txt"><b>哪个 App 里都能打</b><span>微信、备忘录、邮件，切过来就行</span></div></div>
+          <div class="callout l" style="--x: 4%; --len: 112px; top: calc(64.6% - 24px)"><i class="dot"></i><i class="rule"></i><div class="txt"><b>在学的词，标上「字里」</b><span>字里生词本里的词，打字时又见一面</span></div></div>
+          <div class="callout r" style="--x: 86%; --len: 96px; top: calc(64.6% - 24px)"><i class="dot"></i><i class="rule"></i><div class="txt"><b>候选词下面就是英文</b><span>开源词典 CC-CEDICT，装在手机里</span></div></div>
+          <div class="callout r" style="--x: 90%; --len: 98px; top: calc(80% - 24px)"><i class="dot"></i><i class="rule"></i><div class="txt"><b>不联网，不要完全访问</b><span>打的字不离开手机</span></div></div>
+        </div>
+      </div>
+      <div class="pitch">
         <h1>打中文的时候，<br>顺便学英文。</h1>
-        <p>字里输入法是 iPhone 上的拼音键盘。每个候选词下面都有英文释义；你在字里 App 里正在学的词，会标上<b>「字里」</b>。</p>
         <div class="act">
           <a class="btn" href="#demo">打一句试试
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v11M5 11l5 5 5-5"/></svg></a>
           <span class="fine">免费 · iPhone · 测试中</span>
         </div>
       </div>
-      <img class="shot hero-phone" src="img/shot-ime-typing.jpg" alt="字里输入法打字截图：输入框里是「我明天要和客户」，键盘候选栏里「谈判」下面写着 to negotiate，标着字里" width="720" height="1565">
     </div>
   </header>
 
