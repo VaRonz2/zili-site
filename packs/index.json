@@ -1,0 +1,35 @@
+{
+ "format": 1,
+ "packs": [
+  {
+   "id": "ja-zh",
+   "learning": "ja",
+   "native": "zh",
+   "version": 1,
+   "name": {
+    "zh": "日语（中文释义）",
+    "en": "Japanese"
+   },
+   "speech": "ja-JP",
+   "translate": {
+    "source": "ja",
+    "target": "zh-Hans"
+   },
+   "morph": "none",
+   "files": [
+    {
+     "path": "dict.json",
+     "kind": "dict",
+     "bytes": 105085,
+     "sha256": "e8d0b8827fd338fd7a31d8c97e5b97bbd98837c4804638c00c104f7abe78edb2"
+    },
+    {
+     "path": "articles-1.json",
+     "kind": "articles",
+     "bytes": 319817,
+     "sha256": "e31f8d9287ce83bb9bdb8466bad19bbececb12ed09d4033cdc7fbce387961755"
+    }
+   ]
+  }
+ ]
+}
