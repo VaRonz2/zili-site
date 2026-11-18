@@ -362,9 +362,33 @@
       $('saved').hidden = saved.size === 0;
       syncAdd();
     });
+    // 朗读：从浏览器自带的声音里挑最好听的英语声音（Edge 的 Natural、Safari 的 Premium / Enhanced、Chrome 的 Google），
+    // 不选 macOS 的趣味音色和 Eloquence 音色；都没有就交给浏览器默认。声音列表有的浏览器要等 voiceschanged 才有。
+    const NOVELTY = /\b(Albert|Bad News|Bahh|Bells|Boing|Bubbles|Cellos|Good News|Jester|Organ|Superstar|Trinoids|Whisper|Wobble|Zarvox|Junior|Ralph|Fred|Kathy|Eddy|Flo|Grandma|Grandpa|Reed|Rocko|Sandy|Shelley)\b/i;
+    const voiceScore = (v) => {
+      if (!/^en[-_]/i.test(v.lang) || NOVELTY.test(v.name)) return -1;
+      let score = /^en[-_]US$/i.test(v.lang) ? 1 : 0;
+      if (/Natural|Online/i.test(v.name)) score += 50;
+      else if (/Premium/i.test(v.name)) score += 40;
+      else if (/Enhanced/i.test(v.name)) score += 30;
+      else if (/^Google/i.test(v.name)) score += 25;
+      else if (/Samantha|Ava|Allison|Zoe|Evan|Nathan|Susan|Tom|Alex/i.test(v.name)) score += 10;
+      return score;
+    };
+    let bestVoice = null;
+    const pickVoice = () => {
+      const ranked = speechSynthesis.getVoices().map((v) => [voiceScore(v), v]).filter(([s]) => s >= 0).sort((a, b) => b[0] - a[0]);
+      bestVoice = ranked.length ? ranked[0][1] : null;
+    };
+    if ('speechSynthesis' in window) {
+      pickVoice();
+      speechSynthesis.addEventListener?.('voiceschanged', pickVoice);
+    }
     $('say').addEventListener('click', () => {
       if (!('speechSynthesis' in window)) return;
-      const u = new SpeechSynthesisUtterance(current); u.lang = 'en-US'; u.rate = .9;
+      if (!bestVoice) pickVoice();
+      const u = new SpeechSynthesisUtterance(current); u.lang = bestVoice ? bestVoice.lang : 'en-US'; u.rate = .9;
+      if (bestVoice) u.voice = bestVoice;
       speechSynthesis.cancel(); speechSynthesis.speak(u);
     });
   </script>
