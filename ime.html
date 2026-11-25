@@ -152,6 +152,22 @@
     .promise-list b { display: block; font-family: var(--display); font-size: 22px; font-weight: 600; }
     .promise-list span { color: var(--soft); }
 
+    /* Mac 版下载 */
+    .mac { background: var(--sheet, #fff); }
+    .mac .grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 64px; align-items: start; margin-top: 44px; }
+    .mac-card { border: 1px solid var(--line); border-radius: 20px; padding: 32px; background: var(--paper); }
+    .mac-card .head { display: flex; align-items: center; gap: 18px; margin-bottom: 26px; }
+    .mac-card img { width: 72px; height: 72px; }
+    .mac-card .name { font-family: var(--display); font-size: 24px; font-weight: 600; line-height: 1.3; }
+    .mac-card .ver { color: var(--soft); font-size: 14px; }
+    .mac-card .btn { width: 100%; justify-content: center; }
+    .mac-card .facts { list-style: none; padding: 0; margin: 22px 0 0; color: var(--soft); font-size: 14px; display: grid; gap: 6px; }
+    .mac-card .facts li::before { content: "✓"; color: var(--blue); font-weight: 700; margin-right: 8px; }
+    .mac .steps { margin: 0; grid-template-columns: 1fr; gap: 24px; }
+    .mac .steps li { border-top-color: var(--line); }
+    .mac .steps span { color: var(--soft); }
+    .mac kbd { font-family: var(--sans); font-size: 14px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; padding: 1px 7px; background: #fff; white-space: nowrap; }
+
     /* 怎么装 */
     .join { background: var(--night); color: #fff; }
     .join .sec-p { color: #B6BCC8; }
@@ -188,6 +204,7 @@
       .phone-row figure:nth-child(2) { margin-top: 56px; }
       .phone-row figure:nth-child(3) { margin-top: 0; grid-column: 1 / -1; width: 50%; margin-left: auto; margin-right: auto; }
       .steps, .promise-list { grid-template-columns: 1fr; }
+      .mac .grid { grid-template-columns: minmax(0, 1fr); gap: 40px; }
       .steps { gap: 20px; }
     }
     @media (max-width: 600px) {
@@ -213,7 +230,7 @@
     <div class="ghost g2" aria-hidden="true">学</div>
     <div class="top">
       <a class="brand" href="/">字里<small>Zilily</small></a>
-      <nav aria-label="页面"><a href="/">字里 App</a><a href="ime.html" aria-current="page">输入法</a><a href="ime-privacy.html">隐私政策</a></nav>
+      <nav aria-label="页面"><a href="/">字里 App</a><a href="ime.html" aria-current="page">输入法</a><a href="#mac">Mac 下载</a><a href="ime-privacy.html">隐私政策</a></nav>
     </div>
     <div class="stage">
       <div class="device">
@@ -321,10 +338,37 @@
       </div>
     </section>
 
+    <section class="mac" id="mac" aria-labelledby="mac-h">
+      <div class="wrap">
+        <h2 class="sec-h" id="mac-h">Mac 上现在就能用。</h2>
+        <p class="sec-p">在 Mac 上打中文，候选词下面看英语、日语或法语释义，候选窗顶上看整句译文。翻译在你的 Mac 上完成，打的字不上传。</p>
+        <div class="grid">
+          <div class="mac-card">
+            <div class="head">
+              <img src="img/ime-mac-icon.png" alt="" width="72" height="72">
+              <div><div class="name">字里输入法 Mac 版</div><div class="ver">版本 1.0.0（10）</div></div>
+            </div>
+            <a class="btn" href="download/ZiliIME-1.0.0-10.pkg" download>下载安装包
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v11M5 9l5 5 5-5M4 17h12"/></svg></a>
+            <ul class="facts">
+              <li>需要 macOS 26 或更新</li>
+              <li>苹果已检查过（公证），双击就能装</li>
+              <li>免费，约 30 MB</li>
+            </ul>
+          </div>
+          <ol class="steps">
+            <li><b>双击安装包</b><span>按提示一路「继续」，装好后不用重启。</span></li>
+            <li><b>添加输入法</b><span>打开「系统设置 → 键盘 → 输入法」，点 <kbd>＋</kbd>，在「简体中文」里选「字里输入法」。</span></li>
+            <li><b>开始打字</b><span>在菜单栏切到字里输入法就能用。点它的菜单里的「设置」，可以选学习语言、登录字里账号。</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
     <section class="join" id="join" aria-labelledby="join-h">
       <div class="wrap">
-        <h2 class="sec-h" id="join-h">现在还在内部测试。</h2>
-        <p class="sec-p">字里输入法还没上架 App Store，测试版暂时只在内部试用。开放下载后，链接会放在这里。装好以后这样开始：</p>
+        <h2 class="sec-h" id="join-h">iPhone 版还在内部测试。</h2>
+        <p class="sec-p">字里输入法 iPhone 版还没上架 App Store，测试版暂时只在内部试用。开放下载后，链接会放在这里。装好以后这样开始：</p>
         <ol class="steps">
           <li><b>打开字里输入法</b><span>App 首页写着开启键盘的步骤，点「打开设置」直接跳过去。</span></li>
           <li><b>添加键盘</b><span>设置 → 通用 → 键盘 → 键盘 → 添加新键盘 → 字里输入法。</span></li>
